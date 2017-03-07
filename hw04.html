@@ -1,0 +1,151 @@
+﻿﻿<html>
+<head>
+	<title>SKYAND-HW04</title>
+	<link rel="shortcut icon" href="http://m100.nthu.edu.tw/~s100071049/pics/iconDSno.ico" type="image/x-icon" >
+	<style>
+		body{background-image:url(./backgrounds/background.jpg);background-attachment:fixed;background-size:100%;}
+		canvas{background:white;cursor:url(./pics/hw4/penSno.png);position:absolute;left:300px}
+		form.pencilbox{border:#ff7700 5px;background-color:rgba(20%,0%,0%,0.6);border-style:dashed;border-radius:40px; width:150px; height:280px; position:absolute;left:100px}
+		form.eraserBox{border:#ff7700 5px;background-color:rgba(20%,0%,0%,0.6);border-style:dashed;border-radius:40px; width:150px; height:250px; position:absolute;left:1050px}
+		form.textInput{border:#ff7700 5px;background-color:rgba(20%,0%,0%,0.6);border-style:dashed;border-radius:40px; width:150px; height:210px; position:absolute;left:1050px;top:360px}
+		form.others{border:#ff7700 5px;background-color:rgba(20%,0%,0%,0.6);border-style:dashed;border-radius:40px; width:150px; height:210px; position:absolute;left:100px;top:390px}
+	</style>
+</head>
+ 
+<body>
+<table>
+	<tr><font face="Segoe Script" size="6" align="center" color="FFFF99">Canvas　</font>
+		<font face="標楷體" size="6" align="center" color="FFFF99">小畫家</font><br><br></tr>
+</table>
+
+<canvas id="myCanvas" width="700" height="500" style="border:15px ridge #ff7700"></canvas>
+
+<!--負責筆的表單-->
+<form class="pencilbox" name="npencil" align="center">
+	<br>
+	<input type="image" src="./pics/hw4/penBno.png" onClick="pencil();return false" onmouseover="src='./pics/hw4/pengreenBno.png'" onmouseout="src='./pics/hw4/penBno.png'"width="65"><br/>
+	<font face="Segoe Script" size="3" color="FFFF99">color</font><br>
+	<input type="color" name="penColor"><!--選擇筆顏色--><br/><br>
+	<font face="Segoe Script" size="3" color="FFFF99">thickness</font><br>
+	<input type="range" min="0" max="40" step="0.5" value="5" name="thickness"> <!--選擇筆粗細--><br/>
+	<font face="Segoe Script" size="3" color="FFFF99">shape</font><br>
+	<select name="shape">
+        <option value="butt">平直筆觸</option>
+        <option value="round" selected>圓形筆觸</option>
+        <option value="square">方形筆觸</option>
+    </select><br/>
+</form>
+
+<!--負責橡皮擦的表單-->
+<form  class="eraserBox" name="neraser" align="center">
+	<br>
+	<input type="image" src="./pics/hw4/eraserBno.png" width="70" onClick="eraser();return false" onmouseover="src='./pics/hw4/eraserhoverBno.png'" onmouseout="src='./pics/hw4/eraserBno.png'" ><br/><br>
+	<font face="Segoe Script" size="3" color="FFFF99">thickness</font><br>
+	<input type="range" min="0" max="40" step="0.5" value="5" name="thickness"> <!--選擇橡皮擦粗細--><br/><br>
+	<font face="Segoe Script" size="3" color="FFFF99">shape</font><br>
+	<select name="shape">
+        <option value="butt">平直橡皮擦</option>
+        <option value="round" selected>圓形橡皮擦</option>
+        <option value="square">方形橡皮擦</option>
+    </select><br/>
+</form>	
+
+<!--負責文字輸入的表單-->
+<form  class="textInput" name="ntext" align="center">
+	<br>
+	<font face="Segoe Script" size="3" color="FFFF99">text input</font><br>
+	<input type="text" id="word" placeholder="文字" size="17"/><br/>
+	<input type="text" id="x" placeholder="x座標" size="10"/><br/>
+	<input type="text" id="y" placeholder="y座標" size="10"/><br/>
+	<input type="color" name="textColor"><!--選擇顏色--><br/><br/>
+	<input type="button" name="inputText" value="print!" onClick="text(this.form.word.value,this.form.x.value,this.form.y.value)"/>
+	
+</form>
+
+<!--負責其他功能的表單-->
+<form class="others" name="nothers" align="center">
+	
+	<font face="Segoe Script" size="3" color="FFFF99">clear</font><br>
+	<input type="image" src="./pics/hw4/garbageCno.png" onClick="clearCanvas();return false" onmouseover="src='./pics/hw4/garbageOno.png'" onmouseout="src='./pics/hw4/garbageCno.png'" width="68"><br/>
+	<font face="Segoe Script" size="3" color="FFFF99">see your picture</font><br>
+	<input type="image" src="./pics/hw4/outputBno.png" onClick="output();return false" onmouseover="src='./pics/hw4/outputoverBno.png'"  onmouseout="src='./pics/hw4/outputBno.png'" width="70"/>
+</form>
+
+
+<!------------------------------------------------javaScript-------------------------------------------------------------------> 
+<script>
+    var canvas = document.getElementById("myCanvas"); // 取得物件
+	var clearAll = document.getElementById("clear");
+    var ctx = canvas.getContext("2d"); // 取得繪圖環境
+	//var ctxColor = canvasColor.getContext("2d");//背景顏色
+    //canvas.width = document.width - 50;
+    //canvas.height = document.height - 50;
+    var drawMode;
+	
+	//輸出圖片
+	function output() {
+		window.open(document.getElementById('myCanvas').toDataURL());
+	}
+	
+	//輸入文字
+	function text(g,h,i){
+		ctx.fillStyle = document.ntext.textColor.value;
+		ctx.font = '30px Segoe Script';
+		//ctx.textAlign = 'center';
+		//ctx.strokeText(g,h,i);
+		ctx.fillText(g,h,i);
+	}
+	
+	//畫筆
+	function pencil(){
+		canvas.style.cursor="url(./pics/hw4/penSno.png)";
+		canvas.onmousedown = function(){
+			ctx.beginPath();
+			ctx.strokeStyle = document.npencil.penColor.value;//從顏色選擇器取值
+			ctx.lineWidth = document.npencil.thickness.value;
+			ctx.lineCap = document.npencil.shape.value;
+			ctx.moveTo(event.clientX - canvas.style.posLeft-310, event.clientY - canvas.style.posTop-70);
+			drawMode = true;
+			return false;//讓游標不要變成text
+		}
+		canvas.onselectstart = function () { return false; }//讓游標不要變成text
+    }
+	
+	//橡皮擦
+	function eraser(){
+		canvas.style.cursor="url(./pics/hw4/eraserSno.png)";
+		canvas.onmousedown = function(){
+			ctx.beginPath();
+			ctx.strokeStyle = "white";
+			ctx.lineWidth = document.neraser.thickness.value;
+			ctx.lineCap = document.neraser.shape.value;
+			ctx.moveTo(event.clientX - canvas.style.posLeft - 310, event.clientY - canvas.style.posTop - 70);
+			drawMode = true;
+			return false;//讓游標不要變成text
+		}
+		canvas.onselectstart = function () { return false; }//讓游標不要變成text
+    }
+	
+	//清空畫面
+	function clearCanvas(){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	}
+     
+    canvas.onmousemove = function(){
+        if(drawMode){
+            ctx.lineTo(event.clientX - canvas.style.posLeft - 310, event.clientY - canvas.style.posTop - 70);
+            ctx.stroke();
+        }
+    }
+     
+    canvas.onmouseup = function(){
+        drawMode = false;
+    }
+	//canvas.onselectstart = function () { return false; } // ie
+	//canvas.onmousedown = function () { return false; } // mozilla
+     
+</script>
+ 
+ 
+</body>
+</html>
