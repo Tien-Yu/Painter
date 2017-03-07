@@ -1,24 +1,20 @@
-﻿﻿<html>
+﻿<html>
+
 <head>
 	<title>SKYAND-HW04</title>
 	<link rel="shortcut icon" href="http://m100.nthu.edu.tw/~s100071049/pics/iconDSno.ico" type="image/x-icon" >
-	<style>
-		body{background-image:url(./backgrounds/background.jpg);background-attachment:fixed;background-size:100%;}
-		canvas{background:white;cursor:url(./pics/hw4/penSno.png);position:absolute;left:300px}
-		form.pencilbox{border:#ff7700 5px;background-color:rgba(20%,0%,0%,0.6);border-style:dashed;border-radius:40px; width:150px; height:280px; position:absolute;left:100px}
-		form.eraserBox{border:#ff7700 5px;background-color:rgba(20%,0%,0%,0.6);border-style:dashed;border-radius:40px; width:150px; height:250px; position:absolute;left:1050px}
-		form.textInput{border:#ff7700 5px;background-color:rgba(20%,0%,0%,0.6);border-style:dashed;border-radius:40px; width:150px; height:210px; position:absolute;left:1050px;top:360px}
-		form.others{border:#ff7700 5px;background-color:rgba(20%,0%,0%,0.6);border-style:dashed;border-radius:40px; width:150px; height:210px; position:absolute;left:100px;top:390px}
-	</style>
-</head>
- 
+	<link href="css/painter.css" rel="stylesheet">
+</head>	
+
 <body>
+
 <table>
 	<tr><font face="Segoe Script" size="6" align="center" color="FFFF99">Canvas　</font>
-		<font face="標楷體" size="6" align="center" color="FFFF99">小畫家</font><br><br></tr>
+		<font face="Segoe Script" size="6" align="center" color="FFFF99">Painter</font><br><br></tr>
 </table>
 
-<canvas id="myCanvas" width="700" height="500" style="border:15px ridge #ff7700"></canvas>
+
+<canvas id="myCanvas" width="700" height="500" style="position:absolute;left:300px;top:80px"></canvas>
 
 <!--負責筆的表單-->
 <form class="pencilbox" name="npencil" align="center">
@@ -48,7 +44,7 @@
         <option value="round" selected>圓形橡皮擦</option>
         <option value="square">方形橡皮擦</option>
     </select><br/>
-</form>	
+</form>
 
 <!--負責文字輸入的表單-->
 <form  class="textInput" name="ntext" align="center">
@@ -71,81 +67,72 @@
 	<input type="image" src="./pics/hw4/outputBno.png" onClick="output();return false" onmouseover="src='./pics/hw4/outputoverBno.png'"  onmouseout="src='./pics/hw4/outputBno.png'" width="70"/>
 </form>
 
-
-<!------------------------------------------------javaScript-------------------------------------------------------------------> 
+ 
 <script>
-    var canvas = document.getElementById("myCanvas"); // 取得物件
-	var clearAll = document.getElementById("clear");
-    var ctx = canvas.getContext("2d"); // 取得繪圖環境
-	//var ctxColor = canvasColor.getContext("2d");//背景顏色
-    //canvas.width = document.width - 50;
-    //canvas.height = document.height - 50;
-    var drawMode;
+var canvas = document.getElementById("myCanvas"); // 取得物件
+var ctx = canvas.getContext("2d"); // 取得繪圖環境
+var drawMode, mx, my;
+var mode=1;//1 for pencil; 0 for eraser
+
+//畫筆
+function pencil(){
+	canvas.style.cursor="url(./pics/hw4/penSno.png), auto";
+	mode=1;
+}
+//橡皮擦
+function eraser(){
+	canvas.style.cursor="url(./pics/hw4/eraserSno.png), auto";
+	mode=0;
+   }
 	
-	//輸出圖片
-	function output() {
-		window.open(document.getElementById('myCanvas').toDataURL());
+canvas.onmousedown = function(){
+		
+	ctx.beginPath();
+	if(mode==1){
+		ctx.strokeStyle = document.npencil.penColor.value;//從顏色選擇器取值
+		ctx.lineWidth = document.npencil.thickness.value;
+		ctx.lineCap = document.npencil.shape.value;
 	}
-	
-	//輸入文字
-	function text(g,h,i){
-		ctx.fillStyle = document.ntext.textColor.value;
-		ctx.font = '30px Segoe Script';
-		//ctx.textAlign = 'center';
-		//ctx.strokeText(g,h,i);
-		ctx.fillText(g,h,i);
+	else if(mode==0){
+		ctx.strokeStyle = "white";
+		ctx.lineWidth = document.neraser.thickness.value;
+		ctx.lineCap = document.neraser.shape.value;
 	}
+	ctx.moveTo(event.clientX - canvas.style.posLeft-310, event.clientY - canvas.style.posTop-70);
+	drawMode = true;
+	return false;//讓游標不要變成text
+}
 	
-	//畫筆
-	function pencil(){
-		canvas.style.cursor="url(./pics/hw4/penSno.png)";
-		canvas.onmousedown = function(){
-			ctx.beginPath();
-			ctx.strokeStyle = document.npencil.penColor.value;//從顏色選擇器取值
-			ctx.lineWidth = document.npencil.thickness.value;
-			ctx.lineCap = document.npencil.shape.value;
-			ctx.moveTo(event.clientX - canvas.style.posLeft-310, event.clientY - canvas.style.posTop-70);
-			drawMode = true;
-			return false;//讓游標不要變成text
-		}
-		canvas.onselectstart = function () { return false; }//讓游標不要變成text
-    }
-	
-	//橡皮擦
-	function eraser(){
-		canvas.style.cursor="url(./pics/hw4/eraserSno.png)";
-		canvas.onmousedown = function(){
-			ctx.beginPath();
-			ctx.strokeStyle = "white";
-			ctx.lineWidth = document.neraser.thickness.value;
-			ctx.lineCap = document.neraser.shape.value;
-			ctx.moveTo(event.clientX - canvas.style.posLeft - 310, event.clientY - canvas.style.posTop - 70);
-			drawMode = true;
-			return false;//讓游標不要變成text
-		}
-		canvas.onselectstart = function () { return false; }//讓游標不要變成text
-    }
-	
-	//清空畫面
-	function clearCanvas(){
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
+canvas.onmousemove = function(ev){
+	if(drawMode){
+		mx = event.clientX - parseInt(canvas.style.left) + window.pageXOffset;
+		my = event.clientY - parseInt(canvas.style.top) + window.pageYOffset;
+		ctx.lineTo(mx, my);
+		ctx.stroke();
 	}
-     
-    canvas.onmousemove = function(){
-        if(drawMode){
-            ctx.lineTo(event.clientX - canvas.style.posLeft - 310, event.clientY - canvas.style.posTop - 70);
-            ctx.stroke();
-        }
-    }
-     
-    canvas.onmouseup = function(){
-        drawMode = false;
-    }
-	//canvas.onselectstart = function () { return false; } // ie
-	//canvas.onmousedown = function () { return false; } // mozilla
-     
+
+}
+canvas.onmouseup = function(){
+	drawMode = false;
+}
+//輸出圖片
+function output() {
+	window.open(document.getElementById('myCanvas').toDataURL('img/png'));// or window.open(ctx.canvas.toDataURL('img/png'));
+}
+
+//輸入文字
+function text(g,h,i){
+	ctx.fillStyle = document.ntext.textColor.value;
+	ctx.font = '30px Segoe Script';
+	//ctx.textAlign = 'center';
+	//ctx.strokeText(g,h,i);
+	ctx.fillText(g,h,i);
+}
+
+//清空畫面
+function clearCanvas(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 </script>
  
- 
-</body>
-</html>
+</body></html>

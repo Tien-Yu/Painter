@@ -1,0 +1,53 @@
+body
+{
+	background-image:url(../backgrounds/background.jpg);
+	background-attachment:fixed;background-size:100%;
+}
+canvas
+{
+	background:white;
+	cursor:url(../pics/hw4/penSno.png), auto;
+	border:15px ridge #ff7700;
+}
+form.pencilbox
+{
+	border:#ff7700 5px;
+	background-color:rgba(20%,0%,0%,0.6);
+	border-style:dashed;border-radius:40px; 
+	width:150px; height:280px; 
+	position:absolute;left:100px
+}
+form.eraserBox
+{
+	border:#ff7700 5px;
+	background-color:rgba(20%,0%,0%,0.6);
+	border-style:dashed;border-radius:40px;
+	width:150px;
+	height:250px;
+	position:absolute;
+	left:1050px
+}
+form.textInput
+{
+	border:#ff7700 5px;
+	background-color:rgba(20%,0%,0%,0.6);
+	border-style:dashed;
+	border-radius:40px; 
+	width:150px; 
+	height:210px; 
+	position:absolute;
+	left:1050px;
+	top:360px
+}
+form.others
+{
+	border:#ff7700 5px;
+	background-color:rgba(20%,0%,0%,0.6);
+	border-style:dashed;
+	border-radius:40px; 
+	width:150px; 
+	height:210px; 
+	position:absolute;
+	left:100px;
+	top:390px
+}
