@@ -32,7 +32,6 @@ canvas.onmousedown = function(){
 	drawMode = true;
 	return false;//讓游標不要變成text
 }
-	
 canvas.onmousemove = function(ev){
 	if(drawMode){
 		mx = event.clientX - parseInt(canvas.style.left) + window.pageXOffset;
@@ -42,7 +41,8 @@ canvas.onmousemove = function(ev){
 	}
 
 }
-canvas.onmouseup = function(){
+//不論在哪裡放開滑鼠都要改變drawmode
+window.onmouseup = function(){
 	drawMode = false;
 }
 //輸出圖片
