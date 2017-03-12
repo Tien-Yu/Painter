@@ -51,3 +51,16 @@ form.others
 	left:100px;
 	top:390px
 }
+form.shape
+{
+	border:#ff7700 5px;
+	background-color:rgba(20%,0%,0%,0.6);
+	border-style:dashed;
+	border-radius:40px; 
+	width:670px; 
+	height:60px; 
+	position:absolute;
+	left:290px;
+	top:640px;
+	padding: 20px;
+}

@@ -1,0 +1,25 @@
+.print {
+  font-family: comic sans ms;
+  font-weight: bold;
+  color: #6A3913 !important;
+  font-size: 14px;
+  text-shadow: 1px 1px 0px #DEA22A;
+  padding: 7px 21px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 2px dotted #5E3317;
+  background: #63B8EE;
+  background: linear-gradient(top,  #FFFF99,  #CF8B25);
+  background: -ms-linear-gradient(top,  #FFFF99,  #CF8B25);
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFFF99), to(#CF8B25));
+  background: -moz-linear-gradient(top,  #FFFF99,  #CF8B25);
+}
+.print:hover {
+  color: #14396A !important;
+  background: #468CCF;
+  background: linear-gradient(top,  #FFDA24,  #AD741F);
+  background: -ms-linear-gradient(top,  #FFDA24,  #AD741F);
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFDA24), to(#AD741F));
+  background: -moz-linear-gradient(top,  #FFDA24,  #AD741F);
+}
