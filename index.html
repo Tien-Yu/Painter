@@ -10,24 +10,21 @@
 
 <body>
 
-<table>
-	<tr><font face="Segoe Script" size="6" align="center" color="FFFF99">Canvas　</font>
-		<font face="Segoe Script" size="6" align="center" color="FFFF99">Painter</font><br><br></tr>
-</table>
+
 
 
 <canvas id="myCanvas" width="700" height="500" style="position:absolute;left:290px;top:80px"></canvas>
 
 <!--負責筆的表單-->
-<form class="pencilbox" name="npencil" align="center">
+<form class="pencilbox" align="center">
 	<br>
-	<input type="image" src="./pics/hw4/penBno.png" onClick="pencil();return false" onmouseover="src='./pics/hw4/pengreenBno.png'" onmouseout="src='./pics/hw4/penBno.png'"width="65"><br/>
-	<font face="Segoe Script" size="3" color="FFFF99">color</font><br>
-	<input type="color" name="penColor"><!--選擇筆顏色--><br/><br>
-	<font face="Segoe Script" size="3" color="FFFF99">thickness</font><br>
-	<input type="range" min="1" max="40" step="0.5" value="5" name="thickness"> <!--選擇筆粗細--><br/>
-	<font face="Segoe Script" size="3" color="FFFF99">shape</font><br>
-	<select name="shape">
+	<input type="image" id="penSelect" src="./pics/hw4/penBno.png" ><br/>
+	<font class="titles">color</font><br>
+	<input type="color" id="penColor"><!--選擇筆顏色--><br/><br>
+	<font class="titles">thickness</font><br>
+	<input type="range" min="1" max="40" step="0.5" value="5" id="penThickness"> <!--選擇筆粗細--><br/>
+	<font class="titles">shape</font><br>
+	<select id="penShape">
         <option value="butt">平直筆觸</option>
         <option value="round" selected>圓形筆觸</option>
         <option value="square">方形筆觸</option>
@@ -35,13 +32,13 @@
 </form>
 
 <!--負責橡皮擦的表單-->
-<form  class="eraserBox" name="neraser" align="center">
+<form  class="eraserBox" align="center">
 	<br>
-	<input type="image" src="./pics/hw4/eraserBno.png" width="70" onClick="eraser();return false" onmouseover="src='./pics/hw4/eraserhoverBno.png'" onmouseout="src='./pics/hw4/eraserBno.png'" ><br/><br>
-	<font face="Segoe Script" size="3" color="FFFF99">thickness</font><br>
-	<input type="range" min="1" max="40" step="0.5" value="5" name="thickness"> <!--選擇橡皮擦粗細--><br/><br>
-	<font face="Segoe Script" size="3" color="FFFF99">shape</font><br>
-	<select name="shape">
+	<input type="image" id="eraserSelect" src="./pics/hw4/eraserBno.png"><br/><br>
+	<font class="titles">thickness</font><br>
+	<input type="range" min="1" max="40" step="0.5" value="5" id="eraserThickness"> <!--選擇橡皮擦粗細--><br/><br>
+	<font class="titles">shape</font><br>
+	<select id="eraserShape">
         <option value="butt">平直橡皮擦</option>
         <option value="round" selected>圓形橡皮擦</option>
         <option value="square">方形橡皮擦</option>
@@ -49,35 +46,35 @@
 </form>
 
 <!--負責文字輸入的表單-->
-<form  class="textInput" name="ntext" align="center">
+<form  class="textInput" align="center">
 	<br>
-	<font face="Segoe Script" size="3" color="FFFF99">text input</font><br>
+	<font class="titles">text input</font><br>
 	<input type="text" id="word" placeholder="文字" size="14"/><br/>
 	<input type="text" id="x" placeholder="x座標" size="10"/><br/>
 	<input type="text" id="y" placeholder="y座標" size="10"/><br/>
-	<input type="color" name="textColor"><!--選擇顏色--><br/><br/>
-	<input type="button" name="inputText" class="print" value="Print!" onClick="text(this.form.word.value,this.form.x.value,this.form.y.value)"/>
+	<input type="color" id="textColor"><!--選擇顏色--><br/><br/>
+	<input type="button" id="textprint" class="print" value="Print!"/>
 	
 </form>
 
 <!--負責其他功能的表單-->
 <form class="others" name="nothers" align="center">
 	
-	<font face="Segoe Script" size="3" color="FFFF99">clear</font><br>
-	<input type="image" src="./pics/hw4/garbageCno.png" onClick="clearCanvas();return false" onmouseover="src='./pics/hw4/garbageOno.png'" onmouseout="src='./pics/hw4/garbageCno.png'" width="68"><br/>
-	<font face="Segoe Script" size="3" color="FFFF99">see your picture</font><br>
-	<input type="image" src="./pics/hw4/outputBno.png" onClick="output();return false" onmouseover="src='./pics/hw4/outputoverBno.png'"  onmouseout="src='./pics/hw4/outputBno.png'" width="70"/>
+	<font class="titles">clear</font><br>
+	<input type="image" id="clear" src="./pics/hw4/garbageCno.png"><br/>
+	<font class="titles">see your picture</font><br>
+	<input type="image" id="outputImg" src="./pics/hw4/outputBno.png"/>
 </form>
 
 <!--負責圖形的表單-->
 <form class="shape" name="nshape" align="center">
-	
-	
-	<input type="image" src="./pics/hw4/rectangle.png" onClick="rectangle();return false" onmouseover="src='./pics/hw4/rectangle_y.png'" onmouseout="src='./pics/hw4/rectangle.png'" width="60"> 
+	<input type="image" id="recShape" src="./pics/hw4/rectangle.png"> 
 	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-	<input type="image" src="./pics/hw4/ellipse.png" onClick="circle();return false" onmouseover="src='./pics/hw4/ellipse_y.png'"  onmouseout="src='./pics/hw4/ellipse.png'" width="60"/>
+	<input type="image" id="circleShape" src="./pics/hw4/ellipse.png"/>
 	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-	<input type="range" min="1" max="40" step="0.5" value="5" name="thickness">
+	<input type="color" id="shapeColor">
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	<input type="range" min="1" max="40" step="0.5" value="5" id="shapeThickness">
 </form>
 
 <!--javascript-->

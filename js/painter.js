@@ -1,6 +1,13 @@
 
-var canvas = document.getElementById("myCanvas"); // 取得物件
+var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d"); // 取得繪圖環境
+var pencilObj= document.getElementById("penSelect");
+var eraserObj = document.getElementById("eraserSelect");
+var textprintObj = document.getElementById("textprint");
+var clearObj = document.getElementById("clear");
+var outputImgObj = document.getElementById("outputImg");
+var recShapeObj = document.getElementById("recShape");
+var circleShapeObj = document.getElementById("circleShape");
 var drawMode, mx, my, oriX, oriY, dist;
 var mode=0;//0 for pencil; 1 for eraser; 2 for circle; 3 for rectangle
 var oldImg;
@@ -51,30 +58,35 @@ canvas.onmousedown = function(){
 		
 	ctx.beginPath();
 	if(mode==0){
-		ctx.strokeStyle = document.npencil.penColor.value;//從顏色選擇器取值
-		ctx.lineWidth = document.npencil.thickness.value;
-		ctx.lineCap = document.npencil.shape.value;
+		ctx.strokeStyle = document.getElementById("penColor").value;//從顏色選擇器取值
+		ctx.globalCompositeOperation = "source-over";
+		ctx.lineWidth = document.getElementById("penThickness").value;
+		ctx.lineCap = document.getElementById("penShape").value;
 	}
 	else if(mode==1){
 		ctx.strokeStyle = "white";
-		ctx.lineWidth = document.neraser.thickness.value;
-		ctx.lineCap = document.neraser.shape.value;
+		ctx.globalCompositeOperation = "destination-out";
+		ctx.strokeStyle = "rgba(0,0,0,1)";
+		ctx.lineWidth = document.getElementById("eraserThickness").value;
+		ctx.lineCap = document.getElementById("eraserShape").value;
 	}
 	else if(mode==2){
-		ctx.lineWidth = document.nshape.thickness.value;
+		ctx.lineWidth = document.getElementById("shapeThickness").value;
+		ctx.globalCompositeOperation = "source-over";
 		mx = event.clientX - parseInt(canvas.style.left) + window.pageXOffset;
 		my = event.clientY - parseInt(canvas.style.top) + window.pageYOffset;
 		oldImg = ctx.getImageData(0, 0, 5000, 5000);
-        color = document.npencil.penColor.value;    
+        color = document.getElementById("shapeColor").value;    
         oriX = mx;
         oriY = my;
 	}
 	else if(mode==3){
-		ctx.lineWidth = document.nshape.thickness.value;
+		ctx.lineWidth = document.getElementById("shapeThickness").value;
+		ctx.globalCompositeOperation = "source-over";
 		mx = event.clientX - parseInt(canvas.style.left) + window.pageXOffset;
 		my = event.clientY - parseInt(canvas.style.top) + window.pageYOffset;
 		oldImg = ctx.getImageData(0, 0, 5000, 5000);
-        color = document.npencil.penColor.value;    
+        color = document.getElementById("shapeColor").value;    
         oriX = mx;
         oriY = my;
 	}
@@ -110,12 +122,13 @@ window.onmouseup = function(){
 }
 //輸出圖片
 function output() {
-	window.open(document.getElementById('myCanvas').toDataURL('img/png'));// or window.open(ctx.canvas.toDataURL('img/png'));
+	window.open(canvas.toDataURL('img/png'));// or window.open(ctx.canvas.toDataURL('img/png'));
 }
 
 //輸入文字
-function text(g,h,i){
-	ctx.fillStyle = document.ntext.textColor.value;
+function textt(g,h,i){
+	ctx.fillStyle = document.getElementById("textColor").value; 
+	ctx.globalCompositeOperation = "source-over";
 	ctx.font = '30px Segoe Script';
 	//ctx.textAlign = 'center';
 	//ctx.strokeText(g,h,i);
@@ -125,4 +138,71 @@ function text(g,h,i){
 //清空畫面
 function clearCanvas(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+// text print
+textprintObj.onclick = function(){
+	var inputText = document.getElementById("word");
+	var xPos = document.getElementById("x");
+	var yPos = document.getElementById("y");
+	textt(inputText.value,x.value,y.value);
+}
+//pencil img event
+pencilObj.onclick = function(){
+	pencil();return false;
+}
+pencilObj.onmouseover = function(){
+	this.src='./pics/hw4/pengreenBno.png';
+}
+pencilObj.onmouseout = function(){
+	this.src='./pics/hw4/penBno.png';
+}
+//eraser img event
+eraserObj.onclick = function(){
+	eraser();return false;
+}
+eraserObj.onmouseover = function(){
+	this.src='./pics/hw4/eraserhoverBno.png';
+}
+eraserObj.onmouseout = function(){
+	this.src='./pics/hw4/eraserBno.png';
+}
+//clear img event
+clearObj.onclick = function(){
+	clearCanvas();return false;
+}
+clearObj.onmouseover = function(){
+	this.src='./pics/hw4/garbageOno.png';
+}
+clearObj.onmouseout = function(){
+	this.src='./pics/hw4/garbageCno.png';
+}
+//outputImg img event
+outputImgObj.onclick = function(){
+	output();return false;
+}
+outputImgObj.onmouseover = function(){
+	this.src='./pics/hw4/outputoverBno.png';
+}
+outputImgObj.onmouseout = function(){
+	this.src='./pics/hw4/outputBno.png';
+}
+//recShape img event
+recShapeObj.onclick = function(){
+	rectangle();return false;
+}
+recShapeObj.onmouseover = function(){
+	this.src='./pics/hw4/rectangle_y.png';
+}
+recShapeObj.onmouseout = function(){
+	this.src='./pics/hw4/rectangle.png';
+}
+//circleShape img event
+circleShapeObj.onclick = function(){
+	circle();return false;
+}
+circleShapeObj.onmouseover = function(){
+	this.src='./pics/hw4/ellipse_y.png';
+}
+circleShapeObj.onmouseout = function(){
+	this.src='./pics/hw4/ellipse.png';
 }

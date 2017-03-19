@@ -15,7 +15,9 @@ form.pencilbox
 	background-color:rgba(20%,0%,0%,0.6);
 	border-style:dashed;border-radius:40px; 
 	width:150px; height:280px; 
-	position:absolute;left:100px
+	position:absolute;
+	left:100px;
+	top:80px;
 }
 form.eraserBox
 {
@@ -25,7 +27,8 @@ form.eraserBox
 	width:150px;
 	height:250px;
 	position:absolute;
-	left:1050px
+	left:1050px;
+	top:80px;
 }
 form.textInput
 {
@@ -64,3 +67,26 @@ form.shape
 	top:640px;
 	padding: 20px;
 }
+#penSelect
+{
+	width:65px;
+}
+#eraserSelect, #outputImg
+{
+	width:70px;
+}
+#clear
+{
+	width:68px;
+}
+#circleShape, #recShape
+{
+	width:60px;
+}
+font.titles
+{
+	font-family: "Segoe Script";
+	font-size: 17px;
+	color: #FFFF99;
+}
+
