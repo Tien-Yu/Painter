@@ -45,7 +45,7 @@ function drawCircle(x, y, mxx, myy, color){
 	ctx.bezierCurveTo(x, 2*y-myy, mxx, 2*y-myy, mxx, y);// y-(myy-y)
 	ctx.stroke();
 }
-function drawRectangle(x, y, r, mxx, myy, color){
+function drawRectangle(x, y, mxx, myy, color){
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.rect(x, y, mxx-x, myy-y);
@@ -110,7 +110,7 @@ canvas.onmousemove = function(ev){
 		else if(mode==3){
 			ctx.clearRect(0,0,5000,5000);
 			ctx.putImageData(oldImg,0,0);
-			drawRectangle(oriX, oriY, dist(oriX,oriY,mx,my), mx,my,color);
+			drawRectangle(oriX, oriY, mx,my,color);
 		}
 		
 	}
